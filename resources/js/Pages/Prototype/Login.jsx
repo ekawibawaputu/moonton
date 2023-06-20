@@ -1,7 +1,7 @@
 import { Link, Head } from "@inertiajs/react";
-import Input from "@/Components/TextInput";
-import Label from "@/Components/InputLabel";
-import Button from "@/Components/PrimaryButton";
+import Input from "@/Components/Input";
+import Label from "@/Components/Label";
+import Button from "@/Components/Button";
 
 export default function Login() {
     return (
