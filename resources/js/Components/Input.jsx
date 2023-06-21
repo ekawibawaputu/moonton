@@ -1,7 +1,7 @@
-import { forwardRef, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
-forwardRef.propTypes = {
+Input.propTypes = {
     type: PropTypes.oneOf(["text", "email", "password", "number", "file"]),
     name: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -9,26 +9,28 @@ forwardRef.propTypes = {
     className: PropTypes.string,
     variant: PropTypes.oneOf(["primary", "error", "primary-outline"]),
     autoComplete: PropTypes.string,
-    required: PropTypes.boolean,
-    isFocused: PropTypes.boolean,
+    required: PropTypes.bool,
+    isFocused: PropTypes.bool,
     handleChange: PropTypes.func,
     placeholder: PropTypes.string,
-    isError: PropTypes.boolean,
+    isError: PropTypes.bool,
 };
 
-export default forwardRef(function TextInput(
-    {
-        type = "text",
-        className = "",
-        isFocused = false,
-        variant = "primary",
-        ...props
-    },
-    ref,
+export default function Input({
+    type = "text",
+    name,
+    value,
     defaultValue,
-    isError
-) {
-    const input = ref ? ref : useRef();
+    className,
+    variant = "primary",
+    autoComplete,
+    required,
+    isFocused,
+    handleChange,
+    placeholder,
+    isError,
+}) {
+    const input = useRef();
 
     useEffect(() => {
         if (isFocused) {
@@ -39,14 +41,19 @@ export default forwardRef(function TextInput(
     return (
         <div className="flex flex-col items-start">
             <input
-                {...props}
-                defaultValue={defaultValue}
                 type={type}
-                className={`rounded-2xl bg-form-bg py-[13px] px-7 w-full input-${variant} ${
+                name={name}
+                value={value}
+                defaultValue={defaultValue}
+                className={`rounded-2xl bg-form-bg py-[13px] px-7 w-full ${
                     isError && "input-error"
-                } ${className}`}
+                } input-${variant} ${className}`}
                 ref={input}
+                autoComplete={autoComplete}
+                required={required}
+                onChange={(e) => handleChange(e)}
+                placeholder={placeholder}
             />
         </div>
     );
-});
+}

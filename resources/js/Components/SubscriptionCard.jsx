@@ -1,4 +1,4 @@
-import Button from "@/Components/PrimaryButton";
+import Button from "@/Components/Button";
 
 export default function SubscriptionCard({
     id,
